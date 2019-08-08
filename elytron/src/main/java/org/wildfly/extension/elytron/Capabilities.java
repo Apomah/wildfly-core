@@ -34,6 +34,7 @@ import org.jboss.msc.service.ServiceBuilder;
 import org.wildfly.extension.elytron.capabilities.CredentialSecurityFactory;
 import org.wildfly.extension.elytron.capabilities._private.DirContextSupplier;
 import org.wildfly.extension.elytron.capabilities.PrincipalTransformer;
+import org.wildfly.extension.elytron.capabilities._private.RealmEventListener;
 import org.wildfly.extension.elytron.capabilities._private.SecurityEventListener;
 import org.wildfly.security.auth.client.AuthenticationConfiguration;
 import org.wildfly.security.auth.client.AuthenticationContext;
@@ -193,8 +194,14 @@ class Capabilities {
 
     static final String SECURITY_EVENT_LISTENER_CAPABILITY = CAPABILITY_BASE + "security-event-listener";
 
+    static final String REALM_EVENT_LISTENER_CAPABILITY = CAPABILITY_BASE + "realm-event-listener";
+
     static final RuntimeCapability<Void> SECURITY_EVENT_LISTENER_RUNTIME_CAPABILITY = RuntimeCapability
             .Builder.of(SECURITY_EVENT_LISTENER_CAPABILITY, true, SecurityEventListener.class)
+            .build();
+
+    static final RuntimeCapability<Void> REALM_EVENT_LISTENER_RUNTIME_CAPABILITY = RuntimeCapability
+            .Builder.of(REALM_EVENT_LISTENER_CAPABILITY, true, RealmEventListener.class)
             .build();
 
     static final String SASL_AUTHENTICATION_FACTORY_CAPABILITY = CAPABILITY_BASE + "sasl-authentication-factory";

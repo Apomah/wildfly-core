@@ -19,9 +19,11 @@ package org.wildfly.extension.elytron;
 
 import static org.jboss.as.controller.PersistentResourceXMLDescription.builder;
 import static org.jboss.as.controller.PersistentResourceXMLDescription.decorator;
+import static org.wildfly.extension.elytron.ElytronDescriptionConstants.AGGREGATE_REALM_EVENT_LISTENER;
 import static org.wildfly.extension.elytron.ElytronDescriptionConstants.AGGREGATE_SECURITY_EVENT_LISTENER;
 import static org.wildfly.extension.elytron.ElytronDescriptionConstants.FILE_AUDIT_LOG;
 import static org.wildfly.extension.elytron.ElytronDescriptionConstants.PERIODIC_ROTATING_FILE_AUDIT_LOG;
+import static org.wildfly.extension.elytron.ElytronDescriptionConstants.REALM_EVENT_LISTENER;
 import static org.wildfly.extension.elytron.ElytronDescriptionConstants.SECURITY_EVENT_LISTENER;
 import static org.wildfly.extension.elytron.ElytronDescriptionConstants.SIZE_ROTATING_FILE_AUDIT_LOG;
 import static org.wildfly.extension.elytron.ElytronDescriptionConstants.SYSLOG_AUDIT_LOG;
@@ -83,6 +85,10 @@ class AuditLoggingParser {
             .addAttribute(AuditResourceDefinitions.REFERENCES, new AttributeParsers.NamedStringListParser(SECURITY_EVENT_LISTENER), new AttributeMarshallers.NamedStringListMarshaller(SECURITY_EVENT_LISTENER))
             .build();
 
+    private final PersistentResourceXMLDescription aggregateRealmEventParser = builder(PathElement.pathElement(AGGREGATE_REALM_EVENT_LISTENER), null)
+            .addAttribute(AuditResourceDefinitions.REALM_REFERENCES, new AttributeParsers.NamedStringListParser(REALM_EVENT_LISTENER), new AttributeMarshallers.NamedStringListMarshaller(REALM_EVENT_LISTENER))
+            .build();
+
     private final PersistentResourceXMLDescription customSecurityEventParser = builder(PathElement.pathElement(ElytronDescriptionConstants.CUSTOM_SECURITY_EVENT_LISTENER), null)
             .addAttributes(CustomComponentDefinition.ATTRIBUTES)
             .setUseElementsForGroups(false)
@@ -116,6 +122,7 @@ class AuditLoggingParser {
 
     final PersistentResourceXMLDescription parser8_0 = decorator(ElytronDescriptionConstants.AUDIT_LOGGING)
             .addChild(aggregateSecurityEventParser)
+            .addChild(aggregateRealmEventParser)
             .addChild(customSecurityEventParser)
             .addChild(fileAuditLogParser_5_0)
             .addChild(periodicRotatingFileAuditLogParser_5_0)

@@ -17,6 +17,7 @@
  */
 package org.wildfly.extension.elytron;
 
+import static org.wildfly.extension.elytron.Capabilities.REALM_EVENT_LISTENER_RUNTIME_CAPABILITY;
 import static org.wildfly.extension.elytron.Capabilities.SECURITY_EVENT_LISTENER_CAPABILITY;
 import static org.wildfly.extension.elytron.Capabilities.SECURITY_EVENT_LISTENER_RUNTIME_CAPABILITY;
 import static org.wildfly.extension.elytron.Capabilities.SSL_CONTEXT_CAPABILITY;
@@ -64,6 +65,7 @@ import org.jboss.msc.value.InjectedValue;
 import org.wildfly.extension.elytron.FileAttributeDefinitions.PathResolver;
 import org.wildfly.extension.elytron.TrivialService.ValueSupplier;
 import org.wildfly.extension.elytron._private.ElytronSubsystemMessages;
+import org.wildfly.extension.elytron.capabilities._private.RealmEventListener;
 import org.wildfly.extension.elytron.capabilities._private.SecurityEventListener;
 import org.wildfly.security.audit.AuditEndpoint;
 import org.wildfly.security.audit.AuditLogger;
@@ -183,10 +185,19 @@ class AuditResourceDefinitions {
     private static final AggregateComponentDefinition<SecurityEventListener> AGGREGATE_SECURITY_EVENT_LISTENER = AggregateComponentDefinition.create(SecurityEventListener.class,
             ElytronDescriptionConstants.AGGREGATE_SECURITY_EVENT_LISTENER, ElytronDescriptionConstants.SECURITY_EVENT_LISTENERS, SECURITY_EVENT_LISTENER_RUNTIME_CAPABILITY, SecurityEventListener::aggregate, false);
 
+    private static final AggregateComponentDefinition<RealmEventListener> AGGREGATE_REALM_EVENT_LISTENER = AggregateComponentDefinition.create(RealmEventListener.class,
+            ElytronDescriptionConstants.AGGREGATE_REALM_EVENT_LISTENER, ElytronDescriptionConstants.REALM_EVENT_LISTENERS, REALM_EVENT_LISTENER_RUNTIME_CAPABILITY, RealmEventListener::aggregate, false);
+
     static final ListAttributeDefinition REFERENCES = AGGREGATE_SECURITY_EVENT_LISTENER.getReferencesAttribute();
+
+    static final ListAttributeDefinition REALM_REFERENCES = AGGREGATE_REALM_EVENT_LISTENER.getReferencesAttribute();
 
     static AggregateComponentDefinition<SecurityEventListener> getAggregateSecurityEventListenerDefinition() {
         return AGGREGATE_SECURITY_EVENT_LISTENER;
+    }
+
+    static AggregateComponentDefinition<RealmEventListener> getAggregateRealmEventListenerDefinition() {
+        return AGGREGATE_REALM_EVENT_LISTENER;
     }
 
     static final String DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";

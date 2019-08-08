@@ -180,6 +180,7 @@ class ElytronDefinition extends SimpleResourceDefinition {
 
         // Audit
         resourceRegistration.registerSubModel(AuditResourceDefinitions.getAggregateSecurityEventListenerDefinition());
+        resourceRegistration.registerSubModel(AuditResourceDefinitions.getAggregateRealmEventListenerDefinition());
         resourceRegistration.registerSubModel(new CustomComponentDefinition<>(Consumer.class, SecurityEventListener::from,
                 ElytronDescriptionConstants.CUSTOM_SECURITY_EVENT_LISTENER, SECURITY_EVENT_LISTENER_RUNTIME_CAPABILITY));
         resourceRegistration.registerSubModel(AuditResourceDefinitions.getFileAuditLogResourceDefinition());

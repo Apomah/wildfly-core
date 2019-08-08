@@ -41,6 +41,7 @@ interface ElytronDescriptionConstants {
     String AGGREGATE_PRINCIPAL_TRANSFORMER = "aggregate-principal-transformer";
     String AGGREGATE_PROVIDERS = "aggregate-providers";
     String AGGREGATE_REALM = "aggregate-realm";
+    String AGGREGATE_REALM_EVENT_LISTENER = "aggregate-realm-event-listener";
     String AGGREGATE_ROLE_MAPPER = "aggregate-role-mapper";
     String AGGREGATE_SASL_SERVER_FACTORY = "aggregate-sasl-server-factory";
     String AGGREGATE_SECURITY_EVENT_LISTENER = "aggregate-security-event-listener";
@@ -415,6 +416,8 @@ interface ElytronDescriptionConstants {
     String READ_IDENTITY = "read-identity";
     String READ_TIMEOUT = "read-timeout";
     String REALM = "realm";
+    String REALM_EVENT_LISTENER = "realm-event-listener";
+    String REALM_EVENT_LISTENERS = "realm-event-listeners";
     String REALM_MAP = "realm-map";
     String REALM_MAPPER = "realm-mapper";
     String REALM_MAPPING = "realm-mapping";
